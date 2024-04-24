@@ -21,3 +21,17 @@ train_dataset = train_dataset.map(preprocess_img)
 # Shuffle and batch the dataset
 train_dataset = train_dataset.shuffle(buffer_size).batch(batch_size).prefetch(buffer_size)
 #specify batch and train_size on own
+
+# Naive Bayes algorithm types
+## Multinomial Naive Bayes:
+Suitable for text classification tasks where features represent word counts or term frequencies.
+Commonly used in natural language processing (NLP) tasks such as document classification, spam filtering, sentiment analysis, etc.
+Works well with data represented as sparse matrices (e.g., TF-IDF vectors).
+## Gaussian Naive Bayes:
+Suitable for continuous data where features follow a Gaussian (normal) distribution.
+Works well for data with numerical features that are assumed to be normally distributed.
+Commonly used in classification tasks involving numerical data, such as medical diagnosis, financial analysis, etc.
+## Bernoulli Naive Bayes:
+Suitable for binary and categorical data represented as binary features (0/1 or True/False).
+Often used in text classification tasks with binary features (e.g., presence or absence of words in a document).
+Works well when dealing with data that can be modeled as a sequence of binary decisions.
