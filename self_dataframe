@@ -1,0 +1,4 @@
+    def payment(self):
+        dct = {k:[v] for k,v in self.df.items()} # WORKAROUND
+        df = pd.DataFrame(dct)
+        print(df)
