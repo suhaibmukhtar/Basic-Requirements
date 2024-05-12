@@ -1,0 +1,46 @@
+uTo determine the number of bookings based on the provided columns and create an "overbooking" column in Excel, you can follow these steps:
+
+### Counting Bookings
+You can count the number of bookings by considering each row as a separate booking entry. Assuming your data starts from cell A2, you can use the following formula in a new cell (let's say, cell R2) to count the number of bookings:
+
+```excel
+=COUNTA(A2:A1000)
+```
+
+Replace "A1000" with the actual range of your data if it exceeds row 1000. This formula counts the non-empty cells in column A, which represents each booking entry.
+
+### Creating Overbooking Column
+To create an "overbooking" column based on certain conditions, you can use an `IF` statement or a combination of `IF` and `AND` statements.
+
+Assuming the "is_canceled" column is in column B and "previous_bookings_not_canceled" is in column J, you can use the following formula in a new column (let's say, column S) to indicate overbooking:
+
+```excel
+=IF(AND(B2=0, J2>1), "Yes", "No")
+```
+
+Explanation of the formula:
+- `B2=0`: Checks if the booking is not canceled (is_canceled equals 0).
+- `J2>1`: Checks if there are previous bookings that were not canceled (previous_bookings_not_canceled is greater than 1).
+- If both conditions are true (`AND`), it returns "Yes" for overbooking; otherwise, it returns "No."
+
+Drag the formula down for all rows in the dataset to apply the logic to each booking entry.
+
+### Final Structure
+Your Excel sheet would look something like this:
+
+```
+|    A    | B | ... | J | ... |  R  |  S  |
+|---------|---|-----|---|-----|-----|-----|
+| Booking | C | ... | Y | ... | ... | ... |
+| Entry 1 | 0 | ... |  2 | ... | ... | Yes |
+| Entry 2 | 1 | ... |  0 | ... | ... | No  |
+| ...     |   | ... |    | ... | ... | ... |
+```
+
+- Column A: Booking entries (each row represents a booking).
+- Column B: "is_canceled" column.
+- Column J: "previous_bookings_not_canceled" column.
+- Column R: Count of bookings using the `COUNTA` formula.
+- Column S: Overbooking indicator based on the `IF` and `AND` conditions.
+
+Adjust the column references and formulas as per your actual data structure and requirements.
