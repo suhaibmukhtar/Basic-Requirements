@@ -1,0 +1,24 @@
+To calculate the room rate in Excel based on the provided information, you'll need to have data columns that include revenue and the number of nights stayed. Assuming your revenue data is in column C and the number of nights stayed is in column E, you can calculate the room rate as follows:
+
+1. **Calculate Total Revenue:**
+   Use the `SUM` function to calculate the total revenue generated from all bookings. Assuming your revenue data starts from cell C2 and extends to C1000, you can use the following formula in a new cell (let's say, cell U2):
+   ```excel
+   =SUM(C2:C1000)
+   ```
+   Adjust the range "C2:C1000" based on your actual data range.
+
+2. **Calculate Total Nights Stayed:**
+   Use the `SUM` function to calculate the total number of nights stayed across all bookings. Assuming your nights stayed data starts from cell E2 and extends to E1000, you can use the following formula in a new cell (let's say, cell V2):
+   ```excel
+   =SUM(E2:E1000)
+   ```
+   Adjust the range "E2:E1000" based on your actual data range.
+
+3. **Calculate Room Rate:**
+   Divide the total revenue by the total nights stayed to calculate the average room rate. Use the following formula in a new cell (let's say, cell W2):
+   ```excel
+   =U2 / V2
+   ```
+   This formula calculates the room rate as the average revenue generated per night stayed.
+
+This calculation provides an average room rate based on the revenue and nights stayed data from your bookings. Adjust the formulas and ranges as per your actual data structure and requirements.
