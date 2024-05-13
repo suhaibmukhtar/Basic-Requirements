@@ -1,0 +1,23 @@
+To make decision variables for room rate and cancellation rate based on the data in Excel, you can create named ranges or use cells to store these variables. Here's how you can do it:
+
+1. **Room Rate Decision Variable:**
+   - Choose a cell (let's say, cell A1) to store the room rate decision variable.
+   - Enter the room rate value in cell A1. For example, if the room rate is $100 per night, enter "100" in cell A1.
+   - Optionally, you can use a named range to refer to this cell. To create a named range:
+     - Select cell A1.
+     - Go to the "Formulas" tab on the Excel ribbon.
+     - Click on "Define Name" (in Excel 2010 or later) or "Name Manager" (in earlier versions).
+     - Enter a name for the range, such as "RoomRate."
+     - Click "OK" to create the named range.
+
+2. **Cancellation Rate Decision Variable:**
+   - Choose another cell (let's say, cell B1) to store the cancellation rate decision variable.
+   - Enter the cancellation rate value in cell B1. For example, if the cancellation rate is 10%, enter "0.1" in cell B1.
+   - Optionally, create a named range for the cancellation rate similar to the room rate named range.
+
+After setting up these decision variables, you can use them in formulas or calculations throughout your Excel sheet. For example:
+
+- To calculate revenue based on room rate and nights stayed, you can use a formula like `=RoomRate * NightsStayed`.
+- To calculate cancellation fees based on cancellation rate and total revenue, you can use a formula like `=CancellationRate * TotalRevenue`.
+
+Using named ranges for decision variables provides a more organized and manageable way to refer to these values in your Excel formulas and calculations. Adjust the cell references and formulas based on your actual data structure and requirements.
