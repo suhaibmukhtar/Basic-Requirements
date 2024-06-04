@@ -1,0 +1,167 @@
+To retrieve the songs of a specific artist, you'll need to perform multiple queries:
+
+1. Find the albums by the artist using their `artistId`.
+2. Find the songs for those albums using the `albumId`s.
+
+Here's a detailed step-by-step guide to accomplish this:
+
+1. **Ensure you have the necessary packages installed**:
+   - `mongodb`: MongoDB driver for Node.js.
+
+   You can install it using npm if you haven't already:
+   ```bash
+   npm install mongodb
+   ```
+
+2. **Create a connection to your MongoDB database**:
+   - Connect to your MongoDB instance.
+   - Access the appropriate database and collections.
+
+3. **Write queries to retrieve albums and then songs for the specified artist**.
+
+Here's a complete example:
+
+```javascript
+const { MongoClient } = require('mongodb');
+
+async function getSongsByArtist(artistId) {
+  const uri = 'your_mongodb_connection_string'; // Replace with your MongoDB connection string
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+  try {
+    await client.connect();
+    const database = client.db('your_database_name'); // Replace with your database name
+    const albumsCollection = database.collection('albums');
+    const songsCollection = database.collection('songs');
+
+    // Step 1: Find albums by the artist
+    const albums = await albumsCollection.find({ artistid: artistId }).toArray();
+    const albumIds = albums.map(album => album._id);
+
+    if (albumIds.length === 0) {
+      console.log('No albums found for artist:', artistId);
+      return [];
+    }
+
+    // Step 2: Find songs by albumIds
+    const songs = await songsCollection.find({ albumid: { $in: albumIds } }).toArray();
+
+    console.log('Songs for artist:', artistId);
+    console.log(songs);
+    return songs;
+  } catch (err) {
+    console.error(err);
+    return [];
+  } finally {
+    await client.close();
+  }
+}
+
+// Example usage:
+const artistId = 'specific_artist_id'; // Replace with the actual artist ID
+getSongsByArtist(artistId);
+```
+
+### Explanation:
+
+1. **Connection String**:
+   - Replace `'your_mongodb_connection_string'` with your actual MongoDB connection string.
+
+2. **Database and Collection Names**:
+   - Replace `'your_database_name'` with the name of your database.
+   - The collection names are assumed to be `albums` and `songs`.
+
+3. **Step 1 - Finding Albums by Artist**:
+   - The `albumsCollection.find({ artistid: artistId }).toArray()` query fetches all albums for the specified artist.
+   - `albumIds` extracts the `_id` fields of these albums.
+
+4. **Step 2 - Finding Songs by Album IDs**:
+   - The `songsCollection.find({ albumid: { $in: albumIds } }).toArray()` query fetches all songs that belong to the albums retrieved in the previous step.
+
+5. **Example Usage**:
+   - Replace `'specific_artist_id'` with the actual artist ID you want to search for.
+
+Make sure your MongoDB server is running and accessible from your Node.js application. This script will connect to the database, fetch songs for the specified artist, and print them to the console. Adjust the connection string, database name, and artist ID as per your requirements.To retrieve the songs of a specific artist, you'll need to perform multiple queries:
+
+1. Find the albums by the artist using their `artistId`.
+2. Find the songs for those albums using the `albumId`s.
+
+Here's a detailed step-by-step guide to accomplish this:
+
+1. **Ensure you have the necessary packages installed**:
+   - `mongodb`: MongoDB driver for Node.js.
+
+   You can install it using npm if you haven't already:
+   ```bash
+   npm install mongodb
+   ```
+
+2. **Create a connection to your MongoDB database**:
+   - Connect to your MongoDB instance.
+   - Access the appropriate database and collections.
+
+3. **Write queries to retrieve albums and then songs for the specified artist**.
+
+Here's a complete example:
+
+```javascript
+const { MongoClient } = require('mongodb');
+
+async function getSongsByArtist(artistId) {
+  const uri = 'your_mongodb_connection_string'; // Replace with your MongoDB connection string
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+  try {
+    await client.connect();
+    const database = client.db('your_database_name'); // Replace with your database name
+    const albumsCollection = database.collection('albums');
+    const songsCollection = database.collection('songs');
+
+    // Step 1: Find albums by the artist
+    const albums = await albumsCollection.find({ artistid: artistId }).toArray();
+    const albumIds = albums.map(album => album._id);
+
+    if (albumIds.length === 0) {
+      console.log('No albums found for artist:', artistId);
+      return [];
+    }
+
+    // Step 2: Find songs by albumIds
+    const songs = await songsCollection.find({ albumid: { $in: albumIds } }).toArray();
+
+    console.log('Songs for artist:', artistId);
+    console.log(songs);
+    return songs;
+  } catch (err) {
+    console.error(err);
+    return [];
+  } finally {
+    await client.close();
+  }
+}
+
+// Example usage:
+const artistId = 'specific_artist_id'; // Replace with the actual artist ID
+getSongsByArtist(artistId);
+```
+
+### Explanation:
+
+1. **Connection String**:
+   - Replace `'your_mongodb_connection_string'` with your actual MongoDB connection string.
+
+2. **Database and Collection Names**:
+   - Replace `'your_database_name'` with the name of your database.
+   - The collection names are assumed to be `albums` and `songs`.
+
+3. **Step 1 - Finding Albums by Artist**:
+   - The `albumsCollection.find({ artistid: artistId }).toArray()` query fetches all albums for the specified artist.
+   - `albumIds` extracts the `_id` fields of these albums.
+
+4. **Step 2 - Finding Songs by Album IDs**:
+   - The `songsCollection.find({ albumid: { $in: albumIds } }).toArray()` query fetches all songs that belong to the albums retrieved in the previous step.
+
+5. **Example Usage**:
+   - Replace `'specific_artist_id'` with the actual artist ID you want to search for.
+
+Make sure your MongoDB server is running and accessible from your Node.js application. This script will connect to the database, fetch songs for the specified artist, and print them to the console. Adjust the connection string, database name, and artist ID as per your requirements.
