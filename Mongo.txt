@@ -1,0 +1,36 @@
+const { MongoClient } = require('mongodb');
+
+async function getReviewsForSong(songId) {
+  const uri = 'your_mongodb_connection_string'; // replace with your MongoDB connection string
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+  try {
+    // Connect to the MongoDB cluster
+    await client.connect();
+
+    // Access the database and the collections
+    const database = client.db('your_database_name'); // replace with your database name
+    const reviewsCollection = database.collection('review');
+
+    // Query the reviews collection for reviews with the specific songId
+    const query = { songid: songId };
+    const reviews = await reviewsCollection.find(query).toArray();
+
+    return reviews;
+
+  } catch (error) {
+    console.error('Error retrieving reviews: ', error);
+  } finally {
+    // Close the connection to the MongoDB cluster
+    await client.close();
+  }
+}
+
+// Example usage:
+getReviewsForSong('specific_song_id') // replace with the actual song ID
+  .then(reviews => {
+    console.log('Reviews for the song:', reviews);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
